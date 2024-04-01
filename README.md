@@ -54,6 +54,6 @@ Musa will complete the questions from 4 to 5
 **Questions 7 to 9**
 Taha will be responsible for completing the questions from 7 to 9 that are listed
 
-### it.m4.at.ig (Please Update your name here, this doesn't look good tbh)
+### Muhammad Ali
 **Questions 10 to 11**
 Whatever his name is, he will complete the questions from 10 to 11 that are listed
