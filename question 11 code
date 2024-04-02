@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_LINE_LENGTH 1024
+
+struct TemperatureData {
+    int year;
+    int month;
+    double avgTemperature;
+    double landAndOceanTemperature;
+};
+
+int main() {
+    FILE *file = fopen("GlobalTemperatures.csv", "r");
+    if (!file) {
+        perror("Error opening file");
+        return 1;
+    }
+
+    struct TemperatureData data;
+    char line[MAX_LINE_LENGTH];
+
+    // Skip header line
+    fgets(line, MAX_LINE_LENGTH, file);
+
+    // Write extracted data to a file
+    FILE *outputFile = fopen("Temper.txt", "w");
+    if (!outputFile) {
+        perror("Error opening output file");
+        return 1;
+    }
+
+    while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
+        char *token = strtok(line, ",");
+        int year = atoi(token);
+
+        if (year >= 1850 && year <= 2015) {
+            data.year = year;
+
+            token = strtok(NULL, ",");
+            data.month = atoi(token);
+
+            // Extract avgTemperature and multiply by 10
+            token = strtok(NULL, ",");
+            data.avgTemperature = atof(token) * 10;
+
+            // Extract landAndOceanTemperature
+            token = strtok(NULL, ",");
+            data.landAndOceanTemperature = atof(token);
+
+            fprintf(outputFile, "%d-%02d, %.2f, %.2f\n", data.year, data.month, data.avgTemperature, data.landAndOceanTemperature);
+        }
+    }
+
+    fclose(file);
+    fclose(outputFile);
+
+    return 0;
+}
